@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package luceneindexer.files;
+package spatialluceneindexer.files;
 
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import luceneindexer.data.Park;
+import spatialluceneindexer.data.Park;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;

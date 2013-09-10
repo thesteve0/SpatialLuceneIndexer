@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package luceneindexer;
+package spatialluceneindexer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedReader;
-import luceneindexer.data.Park;
-import luceneindexer.files.FileOpener;
-import luceneindexer.files.LuceneWriter;
+import spatialluceneindexer.data.Park;
+import spatialluceneindexer.files.FileOpener;
+import spatialluceneindexer.files.LuceneWriter;
 import org.apache.lucene.index.IndexWriter;
 
 /**

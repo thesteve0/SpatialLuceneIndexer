@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package luceneindexer.data;
+package spatialluceneindexer.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
