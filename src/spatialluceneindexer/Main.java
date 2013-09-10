@@ -10,7 +10,6 @@ import java.io.BufferedReader;
 import spatialluceneindexer.data.Park;
 import spatialluceneindexer.files.FileOpener;
 import spatialluceneindexer.files.LuceneWriter;
-import org.apache.lucene.index.IndexWriter;
 
 /**
  *
