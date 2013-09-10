@@ -5,6 +5,7 @@
  */
 package spatialluceneindexer.files;
 
+import com.spatial4j.core.context.SpatialContext;
 import java.io.File;
 import java.io.IOException;
 import spatialluceneindexer.data.Park;
@@ -17,6 +18,10 @@ import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
+import org.apache.lucene.spatial.SpatialStrategy;
+import org.apache.lucene.spatial.prefix.RecursivePrefixTreeStrategy;
+import org.apache.lucene.spatial.prefix.tree.GeohashPrefixTree;
+import org.apache.lucene.spatial.prefix.tree.SpatialPrefixTree;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
@@ -27,18 +32,36 @@ import org.apache.lucene.util.Version;
  */
 public class LuceneWriter {
     
-    String pathToIndex = "";
-    IndexWriter indexWriter = null;
+    private String pathToIndex = "";
+    private IndexWriter indexWriter = null;
+    private SpatialStrategy spatialStrategy = null;
+    private SpatialContext spatialContext = null;
+    
+    
 
     private LuceneWriter() {
     }
 
     public LuceneWriter(String pathToIndex) {
         this.pathToIndex = pathToIndex;
+        setUpSpatialPieces();
     }
     
-    public boolean openIndex(){
-        
+    private void setUpSpatialPieces(){
+        //The spatial context is used for creating spatial object. We use GEO because we are using
+        //unprojected data on the globe
+        this.spatialContext = SpatialContext.GEO;
+    
+        //this is the spatial indexing strategy we are going to use. By setting maximum 
+        // levels to 11 we produce enough specification in the hash to allow for submeter accuracy
+        // which may be overkill in this case. 
+        SpatialPrefixTree grid = new GeohashPrefixTree(spatialContext, 11);
+        //position is the name of the field where you will store the shapes
+        //TODO I am still a bit unclear of the signifigance of the field name
+        this.spatialStrategy = new RecursivePrefixTreeStrategy(grid, "position");
+    }
+    
+    public boolean openIndex(){        
         
         try {
             
