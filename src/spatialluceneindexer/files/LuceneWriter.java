@@ -6,6 +6,7 @@
 package spatialluceneindexer.files;
 
 import com.spatial4j.core.context.SpatialContext;
+import com.spatial4j.core.shape.Shape;
 import java.io.File;
 import java.io.IOException;
 import spatialluceneindexer.data.Park;
@@ -18,6 +19,7 @@ import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
+import org.apache.lucene.index.IndexableField;
 import org.apache.lucene.spatial.SpatialStrategy;
 import org.apache.lucene.spatial.prefix.RecursivePrefixTreeStrategy;
 import org.apache.lucene.spatial.prefix.tree.GeohashPrefixTree;
@@ -90,8 +92,19 @@ public class LuceneWriter {
     
     public void addPark(Park park){
         Document doc = new Document();
+        
         doc.add(new TextField("name", park.getname(), Field.Store.YES));
-        doc.add(new StoredField("coordinates", park.getPos().toString()));
+        
+        //First we make the shape, then we make the indexed field from it. This field can not be stored
+        //This assumes there is always only one shape per document while there could be multiple
+        Shape pointShape = spatialContext.makePoint(park.getPos().get(0).doubleValue(), park.getPos().get(1).doubleValue());
+        for (IndexableField f : spatialStrategy.createIndexableFields(pointShape)) {
+            doc.add(f);
+        }
+        
+        //now let's store the field as well - could be useful to return this to the client
+        doc.add(new StoredField("coords", spatialContext.toString(pointShape)));
+        
         try {
             indexWriter.addDocument(doc);
         } catch (IOException ex) {

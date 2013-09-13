@@ -20,7 +20,7 @@ public class Park {
     @JsonProperty("Name")
     private String Name = "";
     
-    private ArrayList pos = null;
+    private ArrayList<Double> pos = null;
 
     public String getname() {
         return Name;
@@ -30,11 +30,11 @@ public class Park {
         this.Name = name;
     }
 
-    public ArrayList getPos() {
+    public ArrayList<Double> getPos() {
         return pos;
     }
 
-    public void setPos(ArrayList pos) {
+    public void setPos(ArrayList<Double> pos) {
         this.pos = pos;
     }
 
