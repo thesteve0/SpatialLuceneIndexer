@@ -59,7 +59,6 @@ public class LuceneWriter {
         // which may be overkill in this case. 
         SpatialPrefixTree grid = new GeohashPrefixTree(spatialContext, 11);
         //position is the name of the field where you will store the shapes
-        //TODO I am still a bit unclear of the signifigance of the field name
         this.spatialStrategy = new RecursivePrefixTreeStrategy(grid, "position");
     }
     

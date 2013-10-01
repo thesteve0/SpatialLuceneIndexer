@@ -21,7 +21,6 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
         System.out.println("Hello world");
         //Open the file of JSON for reading
         FileOpener fOpener = new FileOpener("parks.json");
