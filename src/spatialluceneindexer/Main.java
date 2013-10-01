@@ -21,7 +21,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Hello world");
+
+        System.out.println("Starting to create the index");
+        
         //Open the file of JSON for reading
         FileOpener fOpener = new FileOpener("parks.json");
         
@@ -59,6 +61,7 @@ public class Main {
             luceneWriter.finish();
         }
         
+        System.out.println("Finished created the index");
     }
     
 }
