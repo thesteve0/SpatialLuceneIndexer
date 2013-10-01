@@ -58,6 +58,7 @@ public class LuceneWriter {
         // levels to 11 we produce enough specification in the hash to allow for submeter accuracy
         // which may be overkill in this case. 
         SpatialPrefixTree grid = new GeohashPrefixTree(spatialContext, 11);
+        
         //position is the name of the field where you will store the shapes
         this.spatialStrategy = new RecursivePrefixTreeStrategy(grid, "position");
     }
