@@ -56,7 +56,7 @@ public class LuceneWriter {
     
         //this is the spatial indexing strategy we are going to use. By setting maximum 
         // levels to 11 we produce enough specification in the hash to allow for submeter accuracy
-        // which may be overkill in this case. 
+        // which may be overkill in this case. 11 is the number of characters used in the geohash 
         SpatialPrefixTree grid = new GeohashPrefixTree(spatialContext, 11);
         
         //position is the name of the field where you will store the shapes
